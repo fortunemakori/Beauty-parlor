@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-cinzel: 'Cinzel', serif;
+  }
+
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #FFF8F9;
+    color: #2E141D;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-serif);
+  }
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+/* Feminine Rose Gold & Champagne Gradients */
+.rose-gold-gradient-text {
+  background: linear-gradient(135deg, #C74B72 0%, #D4AF37 55%, #A62E52 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #C74B72 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rose-gold-gradient-bg {
+  background: linear-gradient(135deg, #F08CA5 0%, #D95378 50%, #B83A5D 100%);
+}
+
+.soft-rose-card {
+  background: #FFFFFF;
+  border-color: #F8DCE2;
+  box-shadow: 0 4px 20px -2px rgba(224, 122, 147, 0.08);
+}
+
+.soft-rose-card:hover {
+  border-color: #F0A3B6;
+  box-shadow: 0 10px 30px -4px rgba(224, 122, 147, 0.16);
+}
+
+.rose-border {
+  border-color: rgba(224, 122, 147, 0.3);
+}
+
+.rose-glow:hover {
+  box-shadow: 0 0 25px rgba(240, 140, 165, 0.25);
+}
+

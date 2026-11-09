@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net: Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidAppointment(data) {
+      return data.bookingRef is string && data.bookingRef.size() <= 64
+        && data.clientName is string && data.clientName.size() <= 100
+        && data.clientPhone is string && data.clientPhone.size() <= 30
+        && data.serviceName is string && data.serviceName.size() <= 150
+        && data.date is string && data.date.size() <= 20
+        && data.timeSlot is string && data.timeSlot.size() <= 20
+        && data.totalKES is number && data.totalKES >= 0
+        && data.depositPaidKES is number && data.depositPaidKES >= 0
+        && data.status in ['confirmed', 'pending', 'completed', 'cancelled'];
+    }
+
+    function isValidReview(data) {
+      return data.author is string && data.author.size() <= 100
+        && data.rating is number && data.rating >= 1 && data.rating <= 5
+        && data.serviceName is string && data.serviceName.size() <= 150
+        && data.text is string && data.text.size() <= 1000;
+    }
+
+    // Connection test document
+    match /test/{testId} {
+      allow get: if isValidId(testId);
+    }
+
+    // Appointments collection: separate get and list
+    match /appointments/{appointmentId} {
+      allow get: if isValidId(appointmentId);
+      allow list: if true;
+      allow create: if isValidId(appointmentId) && isValidAppointment(request.resource.data);
+      allow update: if isValidId(appointmentId)
+        && isValidAppointment(request.resource.data)
+        && request.resource.data.bookingRef == resource.data.bookingRef;
+      allow delete: if false;
+    }
+
+    // Customer Reviews collection: separate get and list
+    match /reviews/{reviewId} {
+      allow get: if isValidId(reviewId);
+      allow list: if true;
+      allow create: if isValidId(reviewId) && isValidReview(request.resource.data);
+      allow update, delete: if false;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Agatha Glamour - Beauty & Academy Rongai",
+  "description": "Kenya Ongata Rongai's premier glamour booking app, stylist scheduler, M-Pesa checkout, Agatha Academy courses, digital certifications, and graduate portfolio hub.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

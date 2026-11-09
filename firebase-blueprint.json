@@ -1,0 +1,143 @@
+{
+  "entities": {
+    "Appointment": {
+      "title": "Appointment",
+      "description": "A booked salon session with service details, deposit status, and M-Pesa reference.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the appointment."
+        },
+        "bookingRef": {
+          "type": "string",
+          "description": "Customer-facing reference code (e.g., AG-8412-M)."
+        },
+        "clientName": {
+          "type": "string",
+          "description": "Full name of the client."
+        },
+        "clientPhone": {
+          "type": "string",
+          "description": "Kenyan mobile number for SMS/WhatsApp notifications."
+        },
+        "clientEmail": {
+          "type": "string",
+          "description": "Optional email address of the client."
+        },
+        "serviceId": {
+          "type": "string",
+          "description": "Identifier of the booked service."
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "Name of the booked service."
+        },
+        "stylistId": {
+          "type": "string",
+          "description": "Identifier of the assigned stylist."
+        },
+        "stylistName": {
+          "type": "string",
+          "description": "Name of the assigned stylist."
+        },
+        "date": {
+          "type": "string",
+          "description": "Appointment date in YYYY-MM-DD format."
+        },
+        "timeSlot": {
+          "type": "string",
+          "description": "Time of the slot (e.g., 10:00 AM)."
+        },
+        "totalKES": {
+          "type": "number",
+          "description": "Total price in Kenyan Shillings."
+        },
+        "depositPaidKES": {
+          "type": "number",
+          "description": "Deposit amount paid via Lipa na M-Pesa."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["confirmed", "pending", "completed", "cancelled"],
+          "description": "Lifecycle state of the appointment."
+        },
+        "mpesaCode": {
+          "type": "string",
+          "description": "Safaricom transaction reference code."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Special styling instructions or notes from the client."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp or formatted creation date."
+        },
+        "reminderSent": {
+          "type": "boolean",
+          "description": "Whether automated appointment reminders were dispatched."
+        }
+      },
+      "required": ["bookingRef", "clientName", "clientPhone", "serviceId", "serviceName", "date", "timeSlot", "totalKES", "depositPaidKES", "status"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Client testimonial or salon rating.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the review."
+        },
+        "author": {
+          "type": "string",
+          "description": "Client name."
+        },
+        "location": {
+          "type": "string",
+          "description": "Client estate or area (e.g. Maasai Lodge, Rongai)."
+        },
+        "date": {
+          "type": "string",
+          "description": "Relative or formatted date."
+        },
+        "rating": {
+          "type": "number",
+          "description": "Star rating out of 5."
+        },
+        "serviceCategory": {
+          "type": "string",
+          "description": "Category of the service reviewed."
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "Name of the service reviewed."
+        },
+        "stylistName": {
+          "type": "string",
+          "description": "Name of the stylist."
+        },
+        "text": {
+          "type": "string",
+          "description": "Review text feedback."
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "Whether this review is from a verified M-Pesa booking."
+        }
+      },
+      "required": ["author", "rating", "serviceName", "text"]
+    }
+  },
+  "firestore": {
+    "/appointments/{appointmentId}": {
+      "schema": "Appointment",
+      "description": "Salon bookings and appointments with deposit tracking."
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Verified client testimonials and feedback."
+    }
+  }
+}
